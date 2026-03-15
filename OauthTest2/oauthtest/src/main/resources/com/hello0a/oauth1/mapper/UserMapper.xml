@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hello0a.oauth1.mapper.UserMapper">
+    <resultMap type="Users" id="userMap">
+        <id property="no" column="no" />
+        <result property="uuid" column="uuid" />
+        <result property="id" column="id" />
+        <result property="password" column="password" />
+        <result property="nickname" column="nickname" />
+        <result property="username" column="username" />
+        <result property="email" column="email" />
+        <result property="provider" column="provider" />
+        <result property="providerId" column="provider_id" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+        <!-- 1:N -->
+        <collection property="authList" select="authList" column="uuid" ofType="UserAuth" />
+    </resultMap>
+    <select id="select" resultMap="userMap">
+        SELECT *
+        FROM users
+        WHERE id = #{id}
+    </select>
+    <select id="authList" resultType="UserAuth">
+        SELECT *
+        FROM user_auth
+        WHERE uuid = #{uuid}
+    </select>
+    <select id="selectBySocial" resultMap="userMap">
+        SELECT *
+        FROM users
+        WHERE provider = #{provider} AND provider_id = #{providerId}
+    </select>
+    <insert id="join">
+        INSERT INTO users ( uuid, id, password, nickname, username, email, provider, provider_id )
+        VALUES ( #{uuid}, #{id}, #{password}, #{nickname}, #{username}, #{email}, #{provider}, #{providerId} )
+    </insert>
+    <insert id="insertAuth">
+        INSERT INTO user_auth ( uuid, auth )
+        VALUES ( #{uuid}, #{auth})
+    </insert>
+</mapper>

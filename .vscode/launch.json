@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AuthtestApplication<authtest-oauthtest>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.hello0a.oauth1.AuthtestApplication",
+            "projectName": "authtest-oauthtest",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
